@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import routesList from './routes';
 /* views */
 import StartView from '@/views/Start.vue';
-import VocabularyView from '@/views/vocabulary/Vocabulary.vue';
+import VocabularyView from '@/views/Vocabulary.vue';
 import LearningWordsGameView from '@/views/learning-game/LearningWordsGame.vue';
 import RepeatingWordsGameView from '@/views/repeating/RepeatingWordsGame.vue';
 
