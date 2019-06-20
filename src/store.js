@@ -3,14 +3,21 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
-	state: {
+const modulesList = {
 
-	},
-	mutations: {
+};
 
-	},
-	actions: {
-
+export const modules = (function createList () {
+	const list = {};
+	for (const name in modulesList) {
+		list[name] = {
+			name,
+			types: modulesList[name].types
+		};
 	}
+	return list;
+}());
+
+export default new Vuex.Store({
+	modules: modulesList
 });
