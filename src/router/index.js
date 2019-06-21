@@ -6,6 +6,7 @@ import StartView from '@/views/Start.vue';
 import VocabularyView from '@/views/Vocabulary.vue';
 import LearningWordsGameView from '@/views/learning-game/LearningWordsGame.vue';
 import RepeatingWordsGameView from '@/views/repeating/RepeatingWordsGame.vue';
+import WordCardView from '@/views/WordCard.vue';
 
 Vue.use(Router);
 
@@ -28,6 +29,15 @@ export default new Router({
 		{
 			path: routesList.wordRepetition,
 			component: RepeatingWordsGameView
+		},
+		{
+			path: '/test',
+			name: 'test',
+			component: WordCardView,
+			props: route => ({
+				wordData: route.params.wordData,
+				renderScheme: route.params.renderScheme
+			})
 		}
 	]
 });
