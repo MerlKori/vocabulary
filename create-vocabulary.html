@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    @media  screen and (max-width: 1000px) {
+        tr {
+            color: red;
+            display: flex;
+            flex-direction: column;
+        }
+    } 
+    </style>
+</head>
+<body>
+
+    <input type="file" name="tets" id="config-file">
+
+    <script>
+    const loadDataField = document.querySelector('#config-file')
+
+    function readeFile (el) {
+        return new Promise(resolve => {
+            const loadFile = el.files[0]
+            const fr = new FileReader()
+            fr.readAsText(loadFile)
+            fr.onload = function() {
+                resolve(fr.result)
+            }
+        })
+    }
+
+    const getRandomNum = () => Math.floor(Math.random() * (1000000 - 50)) + 50;
+
+    loadDataField.addEventListener('change', function () {
+        const res = [];
+        const tagList = [];
+        readeFile(loadDataField).then(data => {
+            let groups = data.split('#');
+            groups = groups.filter(i => i.trim().length !== 0);
+            
+            groups.forEach(group => {
+                const parts = group.split('$');
+                const tag = parts[0].trim() === 'none' ? null : parts[0].trim();
+                if (!tagList.includes(tag) && tag !== null) {
+                    tagList.push(tag);
+                }
+                
+                const words = parts[1].split('\n').filter(w => w.trim().length !== 0);
+                words.forEach(word => {
+                    const wordParts = word.split('/');
+                    res.push ({
+                        id: getRandomNum(),
+                        en: !wordParts[0] ? null : wordParts[0].trim(),
+                        tr: !wordParts[1] ? null : wordParts[1].trim(),
+                        ru: !wordParts[2] ? null : wordParts[2].trim(),
+                        tags: !tag ? [] : [tag]
+                    });
+                });
+            });
+            console.log(res);
+            console.log(tagList);
+        });
+
+        
+    })
+
+
+    </script>
+</body>
+</html>

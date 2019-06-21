@@ -1,6 +1,5 @@
 <template>
 	<div class="vocabulary-view">
-
 		<div class="vocabulary-view__search">
 			<span class="vocabulary-view__search-lang">{{lang}}</span>
 			<el-input
