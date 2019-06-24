@@ -18,9 +18,11 @@
 <body>
 
     <input type="file" name="tets" id="config-file">
+    <button id="send">send</button>
 
     <script>
     const loadDataField = document.querySelector('#config-file')
+    const send = document.querySelector('#send')
 
     function readeFile (el) {
         return new Promise(resolve => {
@@ -34,6 +36,8 @@
     }
 
     const getRandomNum = () => Math.floor(Math.random() * (1000000 - 50)) + 50;
+    // const res = [];
+    // const tagList = [];
 
     loadDataField.addEventListener('change', function () {
         const res = [];
@@ -62,10 +66,42 @@
                 });
             });
             console.log(res);
-            console.log(tagList);
-        });
+            // console.log(tagList);
+            // let bla = tagList.map((tag, idx) => ({tag, id: idx}));
 
-        
+            res.forEach(t => {
+                // let bla = tagList.map((tag, idx) => ({tag, id: idx}));
+                fetch(`http://127.0.0.1:3000/`, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(t)
+                })
+                .then(res => {
+                    console.log(res.body)
+                })
+                .catch(err => console.log(err));
+            })
+ 
+            
+        });
+        // const body = JSON.stringify(res);
+        // send.addEventListener('click', () => {
+        //     fetch(`http://127.0.0.1:3000/`, {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Accept': 'application/json',
+        //                 'Content-Type': 'application/json'
+        //             },
+        //             body
+        //         })
+        //         .then(res => {
+        //             console.log(res.body)
+        //         })
+        //         .catch(err => console.log(err));
+        // });
     })
 
 
