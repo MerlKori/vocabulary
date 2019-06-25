@@ -1,46 +1,32 @@
-import Data from '@/store/modules/data/index';
+import {mutations} from '@/store/index';
+import storeTypes from '@/store/types';
 import http from './http/index';
-import apiDWS from '@/api/dws/index';
-import apiTCS from '@/api/tcs/index';
+import API from '@/api/index';
 
-const s = Data.types.state;
+const s = storeTypes.state;
+const m = storeTypes.mutations;
+
+console.log({
+	API,
+	mutations,
+	storeTypes,
+	http
+});
+
+mutations[m.SET_DATA_AT_INITIALIZATION]({
+	data: [1, 3],
+	entity: s.DICTONARY
+});
+
 
 const initList = [
 	{
-		request: apiDWS.servers.getAll,
-		entity: s.SERVERS
+		request: API.dictonary.getAll,
+		entity: s.DICTONARY
 	},
 	{
-		request: apiDWS.providers.getAll,
-		entity: s.PROVIDERS
-	},
-	{
-		request: apiDWS.providersTypes.getAll,
-		entity: s.PROVIDERS_TYPES
-	},
-	{
-		request: apiDWS.providersAccounts.getAll,
-		entity: s.PROVIDERS_ACCOUNT
-	},
-	{
-		request: apiDWS.domains.getAll,
-		entity: s.DOMAINS
-	},
-	{
-		request: apiDWS.domainRecordsTypes.getAll,
-		entity: s.DOMAINS_RECORDS_TYPES
-	},
-	{
-		request: apiDWS.resources.getAll,
-		entity: s.RESOURCES
-	},
-	{
-		request: apiDWS.resourcesTypes.getAll,
-		entity: s.RESOURCES_TYPES
-	},
-	{
-		request: apiTCS.countries.getAll,
-		entity: s.COUNTRIES
+		request: API.tags.getAll,
+		entity: s.TAGS
 	}
 ];
 
@@ -48,7 +34,7 @@ function initData () {
 	initList.forEach(i => {
 		http.get(i.request)
 			.then(data => {
-				Data.mutations[Data.types.mutations.SET_DATA_AT_INITIALIZATION]({
+				mutations[m.SET_DATA_AT_INITIALIZATION]({
 					data: data.result,
 					entity: i.entity
 				});

@@ -18,7 +18,7 @@ const state = (function initState () {
 	return temp;
 }());
 
-const mutations = {
+export const mutations = {
 	[m.SET_DATA] (state, {entity, data}) {
 		state[entity] = data;
 	},
