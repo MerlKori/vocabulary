@@ -1,13 +1,18 @@
 <template>
 	<label class="field">
-		<span class="field__label">{{label}}</span>
+		<span
+			v-if="labelIsVisible"
+			class="field__label">{{label}}</span>
 		<input
 			@input="changeValue($event)"
 			:value="value"
 			:placeholder="placeholder"
 			class="field__input"
 			type="text">
-		<span class="field__clear-icon"></span>
+		<!-- <span
+			v-show="!iconIsVisible"
+			@click="clearFild()"
+			class="field__clear-icon icon-close"></span> -->
 	</label>
 </template>
 
@@ -27,6 +32,17 @@ export default {
 		changeValue (e) {
 			const value = e.target.value;
 			this.$emit('change', value);
+		},
+		clearFild () {
+			this.$emit('change', null);
+		}
+	},
+	computed: {
+		labelIsVisible () {
+			return !this.label;
+		},
+		iconIsVisible () {
+			return typeof this.value === 'string' && this.value.trim().length > 0;
 		}
 	}
 };
@@ -34,18 +50,27 @@ export default {
 
 <style>
 .field {
-	display: flex;
-	align-items: center;
-	margin: 3px 0;
+	position: relative;
 	padding: 5px;
 }
-/* .field__label {
-	grid-area: label;
-} */
 .field__input {
-	flex-grow: 1;
+	width: 100%;
 }
-/* .field__clear-icon {
-	grid-area: icon;
+.field__clear-icon {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: block;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 1px solid var(--c-grey-6);
+}
+</style>
+
+<style scoped>
+/* .icon-close {
+	background-size: 80%;
+	background-position: center;
 } */
 </style>

@@ -2,11 +2,10 @@
 	<div class="vocabulary-view">
 		<div class="vocabulary-view__search">
 			<span class="vocabulary-view__search-lang">{{lang}}</span>
-			<el-input
-				placeholder="Search"
+
+			<TextField
 				v-model="search"
-				clearable>
-			</el-input>
+				placeholder="Search" />
 		</div>
 
 		<WordsList
@@ -18,7 +17,7 @@
 
 <script>
 import WordsList from '@/components/WordsList.vue';
-import {Input} from 'element-ui';
+import TextField from '@/components/TextField.vue';
 import testData from '@/test';
 
 const isLatinLang = str => {
@@ -34,7 +33,7 @@ export default {
 	name: 'Vocabulary_View',
 	components: {
 		WordsList,
-		ElInput: Input
+		TextField
 	},
 	data: () => ({
 		lang: langs.en,
